@@ -1,0 +1,72 @@
+---
+title: "do_table"
+author: "Xiao Chen"
+date: "2025-04-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## do the table
+
+To do the table 1 according to the original merged data, I chose not to use the imputed version because I don't want the imputed data to change the original data.
+
+Please first replace the work_dir with your own path
+
+```{r initialization}
+rm(list = ls())
+cat("\014")
+
+library(gtsummary)
+library(officer)
+library(readxl)
+library(dplyr)
+
+work_dir = "xxxxx"
+df <- read.csv(paste(work_dir, "/data/sample_cleaned_merged_v5.csv", sep = ""))
+
+# organize the data
+df4table <- df %>% 
+      select(
+        Dx_selected_data, Sex, Age, Edu, Drug_naive, HAMD_Sum, head_motion_rum, 
+        head_motion_dis
+      ) %>% rename(Dx = Dx_selected_data, `Age (years)` = Age, `Education (years)` = Edu, HAMD = HAMD_Sum, `Head motion (rum.)` = head_motion_rum, `Head motion (dis.)` = head_motion_dis
+           )
+
+df4table <- df4table %>%
+  mutate(Dx = recode(Dx, `1` = "MDD",`2` = "HC"),
+         Sex = recode(Sex, `1` = "Male", `2` = "Female"),
+         `Education (years)` = as.numeric(`Education (years)`)
+         )
+df4table$`Education (years)` <- as.numeric(df4table$`Education (years)`)
+
+
+```
+
+## do table
+
+```{r}
+summary_table <- df4table %>%
+  tbl_summary(
+    by = Dx,
+    type = `Education (years)` ~ "continuous",
+    statistic = list(
+      all_continuous() ~ "{mean} ({sd})",
+      `Education (years)` ~ "{mean} ({sd})",
+      Sex ~ "{n} ({p}%)"
+    ),
+    missing_text = "Missing",
+    digits = all_continuous() ~ 2
+  ) %>%
+  add_p(test = list(
+      all_continuous() ~ "t.test")) %>% 
+  bold_labels()
+
+summary_table
+
+summary_table %>% 
+  as_flex_table() %>%
+  flextable::save_as_docx(path = paste(work_dir, "/outputs/table1_summary.docx", sep = ""))
+```

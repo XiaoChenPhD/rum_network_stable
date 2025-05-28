@@ -1,0 +1,48 @@
+---
+title: "data_clean"
+author: "Xiao Chen"
+date: "2024-12-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Initialization
+
+To remove all NaNs using multiple imputation
+
+Please first replace the work_dir with your own path
+
+```{r initialization}
+rm(list = ls())
+cat("\014")
+
+library(mice)
+library(dplyr)
+library(gtsummary)
+
+work_dir = "xxxxx"
+sample_clean <- read.csv(paste(work_dir, "/data/sample_cleaned_merged_v5.csv", sep = ""))
+```
+
+## Using multiple imputation
+
+get rid of all NaNs
+
+```{r}
+# skip the drug_naive column, because all HCs' NaNs have actual meaning
+sample_clean4imp <- sample_clean %>% select(-Drug_naive)
+imp <- mice(sample_clean4imp, m = 5, method = 'pmm')
+sample_clean_imputed <- complete(imp)
+sample_clean_imputed$Drug_naive <- sample_clean$Drug_naive
+
+# Optional: dealing with the merged issues
+sample_clean_imputed$Dx_behavior_data <- NULL
+sample_clean_imputed <- sample_clean_imputed %>% rename(Dx = Dx_selected_data)
+
+write.csv(sample_clean_imputed, 
+          paste(work_dir, "/data/sample_clean_imputed_v5.csv", sep = ""), 
+          row.names = FALSE)
+```
