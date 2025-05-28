@@ -9,21 +9,17 @@
 
 clear;clc;
 
-work_dir = ['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-            '/redo_only_surface/graph_theory/corr'];
-stats_dir = ['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-                '/redo_only_surface/graph_theory/Mixed_Effect/Stats'];
+work_dir = 'xxxxxxxx';
+stats_dir = 'xxxxxxxx';
 
-demographic_info = readtable(['/mnt/Data3/RfMRILab/ChenX/rumination_network', ...
-                         '/analyses/network_redo/sample_clean_imputed_v5.csv']);
+demographic_info = readtable('xxxxxxxxx/sample_clean_imputed_v5.csv');
 load([stats_dir, '/mixed_effect_interaction_stats_corrected.mat']);
 Dx = demographic_info.Dx;
 sub_list = demographic_info.Serial_Number;
                      
 %% get the interested GTA metrics and scales
 
-scale_set = {'Rumination', 'Reflection', 'Brooding', 'BDI', 'HAMD_Sum', 'HAMA_Sum', ...
-             'Rest_emo_before', 'Rest_emo_after', 'Rum_emo', 'Dis_emo'};
+scale_set = {'HAMD_Sum'};
 scale_matrix = demographic_info{:, scale_set};
 subj_idx = find(demographic_info.Dx == 1); %only explore correlation in the MDD patients
 
@@ -39,15 +35,11 @@ rum_metric_MDD = zeros(length(sub_list_MDD),1);
 dis_metric_MDD = zeros(length(sub_list_MDD),1);
 for i = 1:length(sub_list_MDD)
     % rum
-    load(['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-          '/redo_only_surface/graph_theory/Mixed_Effect/MDD_Rum', ...
-          '/GTA_',sub_list_MDD{i}, '.mat']);
+    load('xxxxx/GTA_',sub_list_MDD{i}, '.mat');
     rum_metric_MDD(i) = EigenvectorCentrality_AUC(idx_current);
     
     % dis
-    load(['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-          '/redo_only_surface/graph_theory/Mixed_Effect/MDD_Dis', ...
-          '/GTA_',sub_list_MDD{i}, '.mat']);
+    load('xxxxx/GTA_',sub_list_MDD{i}, '.mat');
     dis_metric_MDD(i) = EigenvectorCentrality_AUC(idx_current);
 end
 
@@ -58,15 +50,11 @@ rum_metric_HC = zeros(length(sub_list_HC),1);
 dis_metric_HC = zeros(length(sub_list_HC),1);
 for i = 1:length(sub_list_HC)
     % rum
-    load(['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-          '/redo_only_surface/graph_theory/Mixed_Effect/HC_Rum', ...
-          '/GTA_',sub_list_HC{i}, '.mat']);
+    load(['xxxxx/GTA_',sub_list_HC{i}, '.mat']);
     rum_metric_HC(i) = EigenvectorCentrality_AUC(idx_current);
     
     % dis
-    load(['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-          '/redo_only_surface/graph_theory/Mixed_Effect/HC_Dis', ...
-          '/GTA_',sub_list_HC{i}, '.mat']);
+    load(['xxxxxx/GTA_',sub_list_HC{i}, '.mat']);
     dis_metric_HC(i) = EigenvectorCentrality_AUC(idx_current);
 end
 

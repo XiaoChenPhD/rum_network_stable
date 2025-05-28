@@ -17,10 +17,10 @@
 
 %% initialization
 clear; clc;
-work_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/redo_only_surface/do_comparison';
+work_dir = 'xxxxxxxx';
 if ~exist(work_dir, 'dir'); mkdir(work_dir); end
-network_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/redo_only_surface/network_matrix';
-data_dir = '/mnt/Data3/RfMRILab/ChenX/Suzhou_Rumination/Preprocessing';
+network_dir = 'xxxxxx';
+data_dir = 'xxxxxxx';
 
 %% initilize the location of network matrixes
 network_rum_dir = [network_dir, '/network_level/rum/'];

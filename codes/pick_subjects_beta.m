@@ -12,12 +12,12 @@
 %% initialization
 clear; clc;
 
-work_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/network_redo';
+work_dir = 'xxxxxx';
 if ~exist(work_dir, 'dir'); mkdir(work_dir); end
-data_dir = '/mnt/Data3/RfMRILab/ChenX/Suzhou_Rumination/Preprocessing';
+data_dir = 'xxxxxxx';
 
 %% read in the demographic data and do cleaning
-demographic_info = readtable([work_dir, '/demographic_info_v10.xlsx'], 'Sheet', 1);
+demographic_info = readtable([work_dir, '/data/demographic_info_v10.xlsx'], 'Sheet', 1);
 % select some columns
 selected_var = {'Serial_Number', 'Dx', 'Sex', 'Age', 'Edu', 'Handedness_label', 'Drug_naive', ...
                 'HAMD_Sum', 'HAMA_Sum', 'Rumination', 'Reflection', 'Brooding', 'BDI'};

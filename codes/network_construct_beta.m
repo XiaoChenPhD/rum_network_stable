@@ -8,10 +8,10 @@
 %% initialization
 clear; clc;
 
-work_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/redo_only_surface';
-data_dir = '/mnt/Data3/RfMRILab/ChenX/Suzhou_Rumination/Preprocessing';
-signal_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/redo_only_surface';
-atlas_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/atlas';
+work_dir = 'xxxxxxx';
+data_dir = 'xxxxxx';
+signal_dir = 'xxxxxxx';
+atlas_dir = 'xxxxxxx';
 
 % change this for different conditions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
