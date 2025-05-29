@@ -8,7 +8,7 @@ DPABISurf_Schaefer2018_400_17Networks_v1.mat: the atlas info file
 Note: Some regions of this atlas do not belong to any networks, they are excluded. This lead to a tricky issue: the atlas number and the node number are different.
 
 /data:
-demographic_info4share.xlsx: shared demographical info
+demographic_info4share.xlsx: shared demographical info;
 The rest are intermediate results
 
 /outputs:
