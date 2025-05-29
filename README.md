@@ -11,8 +11,8 @@ Note: Some regions of this atlas do not belong to any networks, they are exclude
 demographic_info4share.xlsx: shared demographical info
 The rest are intermediate results
 
-/outputs
+/outputs:
 figures generated
 
-/codes
+/codes:
 all the codes used in the paper
