@@ -11,7 +11,7 @@
 clear; clc;
 work_dir = 'xxxxxx';
 if ~exist(work_dir, 'dir'); mkdir(work_dir); end
-data_dir = '/mnt/Data3/RfMRILab/ChenX/Suzhou_Rumination/Preprocessing';
+data_dir = 'xxxxxxx';
 
 GTA_metircs_rum_dir = [work_dir, '/GTA_metrics/rum'];
 GTA_metrics_dis_dir = [work_dir, '/GTA_metrics/dis'];

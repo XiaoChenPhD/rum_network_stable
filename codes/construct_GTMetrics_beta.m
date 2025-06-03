@@ -8,7 +8,7 @@
 clear; clc;
 
 work_dir = 'xxx';
-load([, '/preprocessing/cfg_GTA.mat']);
+load([work_dir, '/preprocessing/cfg_GTA.mat']);
 Cfg.ParallelWorkersNumber = 8;
 
 %%
