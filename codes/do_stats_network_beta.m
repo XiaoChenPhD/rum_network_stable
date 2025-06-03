@@ -2,16 +2,8 @@
 % Written by ChenXiao
 % 20220302
 % 
-% Redo the whole brain (Schaefer 400 17 networks + subcortical 54) analyses
-% Using NBS as multiple comparsion correction strategy
-% Modified by Xiao Chen
-% 20241213
-%
-% beta version
-% 250102
-%
-% add a one sample t 
-% 250318
+% the version to be shared
+% 250603
 %
 % chenxiaophd@gmail.com
 
@@ -29,13 +21,10 @@ network_dis_dir = [network_dir, '/network_level/dis/'];
 nodal_dis_dir = [network_dir, '/nodal_level/dis/'];
 network_rest_dir = [network_dir, '/network_level/rest/'];
 nodal_rest_dir = [network_dir, '/nodal_level/rest/'];
-% network_sad_dir = [network_dir, '/Network_Level/NetworkMatrix_Sad/'];
-% nodal_sad_dir = [network_dir, '/Nodal_Level/NetworkMatrix_Sad/'];
 
 %% read in demographic data
-demographic_info = readtable(['/mnt/Data3/RfMRILab/ChenX/rumination_network', ...
-                              '/analyses/network_redo/sample_clean_imputed_v5.csv']);
-sub_list = demographic_info.Serial_Number;
+demographic_info = readtable([work_dir, '/data/sample_clean_imputed_v5.csv']);
+sub_list = demographic_info.serial_Number;
 % group info, MDD or HC
 Dx =  demographic_info.Dx;
 Age = demographic_info.Age;

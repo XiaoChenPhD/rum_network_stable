@@ -7,8 +7,8 @@
 %% initialization
 clear; clc;
 
-work_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/redo_DMN';
-load('/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/redo_only_surface/cfg_GTA.mat');
+work_dir = 'xxx';
+load([, '/preprocessing/cfg_GTA.mat']);
 Cfg.ParallelWorkersNumber = 8;
 
 %%

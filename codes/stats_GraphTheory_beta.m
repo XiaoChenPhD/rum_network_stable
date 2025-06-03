@@ -2,33 +2,22 @@
 % Xiao Chen
 % 220411
 %
-% Redo the analysis of all Graph Theory results, especially betweenness
-% Modified by Xiao Chen
-% 241225
-% 
-% beta version: I did not reproduce the betweenness results. After redo the
-% whole analysis pipeline, here is the beta version
-% 250110
-%
-% Also do two sample t test
-% 250507
+% The version to be shared
+% 250603
 %
 % chenxiaophd@gmail.com
 
 %% Initialization
 clear; clc;
-work_dir = '/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses/redo_only_surface/graph_theory';
+work_dir = 'xxxxxx';
 if ~exist(work_dir, 'dir'); mkdir(work_dir); end
 data_dir = '/mnt/Data3/RfMRILab/ChenX/Suzhou_Rumination/Preprocessing';
 
-GTA_metircs_rum_dir = ['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-                       '/redo_AN_FPN_DMN/GTA_metrics/rum'];
-GTA_metrics_dis_dir = ['/mnt/Data3/RfMRILab/ChenX/rumination_network/analyses', ...
-                       '/redo_AN_FPN_DMN/GTA_metrics/dis'];
+GTA_metircs_rum_dir = [work_dir, '/GTA_metrics/rum'];
+GTA_metrics_dis_dir = [work_dir, '/GTA_metrics/dis'];
 
 % read in demographic data
-demographic_info = readtable(['/mnt/Data3/RfMRILab/ChenX/rumination_network', ...
-                              '/analyses/network_redo/sample_clean_imputed_v5.csv']);
+demographic_info = readtable([work_dir, '/data/sample_clean_imputed_v5.csv']);
 sub_list = demographic_info.Serial_Number;
 % group info, MDD or HC
 Dx =  demographic_info.Dx;

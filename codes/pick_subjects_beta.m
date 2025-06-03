@@ -16,8 +16,8 @@
 clear; clc;
 
 % work_dir: the github repository
-work_dir = '/Users/Chenxiao/Documents/project_codes/rum_network_stable';
-data_dir = '/Volumes/XIaoChenBAK/Suzhou_Data/data4share';
+work_dir = 'xxxxxxx';
+data_dir = 'xxxxxxx';
 
 %% read in the demographic data and do cleaning
 demographic_info = readtable([work_dir, '/data/demographic_info4share.xlsx'], 'Sheet', 1);
@@ -40,7 +40,7 @@ for i = 1:length(selected_var)
 end
 
 % read in the behavior data
-behavior_data = readtable([work_dir, '/data/behaviral_results.csv']);
+behavior_data = readtable([work_dir, '/data/behaviral_results_v2.xlsx'], 'Sheet', 1);
 % set all 999s as NaN
 for i = 1:width(behavior_data)
     if isnumeric(behavior_data{:, i})
@@ -59,26 +59,26 @@ selected_data = selected_data(~rowsToExclude, :);
 selected_data = selected_data(selected_data.Handedness_label ~= 2, :);
 
 % #3: exclude two subjects with wrong phase coding direction
-selected_data = selected_data(~ismember(selected_data.Serial_Number, {'Sub026', 'Sub051'}), :);
+selected_data = selected_data(~ismember(selected_data.Serial_number, {'Sub026', 'Sub051'}), :);
 
 % #4: have all the resting state, rumination/distraction states data
-sub_list_task = importdata([work_dir, '/sub_list_task_merged20220118.txt']);
-sub_list_rest = importdata([work_dir, '/sub_list_rest_merged20220105.txt']);
+sub_list_task = importdata([work_dir, '/data/sub_list_task_merged20220118.txt']);
+sub_list_rest = importdata([work_dir, '/data/sub_list_rest_merged20220105.txt']);
 commonSubjects = intersect(sub_list_task, sub_list_rest);
-selected_data = selected_data(ismember(selected_data.Serial_Number, commonSubjects), :);
+selected_data = selected_data(ismember(selected_data.Serial_number, commonSubjects), :);
 
 % #5: rule out excessive head motion, FD_Jenkinson > 0.2
 % 1: Rum, 2: Dis, 3: Rest
 HeadMotion = zeros(height(selected_data),3);
 for i=1:height(selected_data)
-    Temp=load([data_dir,'/Task/RealignParameter/sub-',selected_data.Serial_Number{i}, ...
-                                '/FD_Jenkinson_sub-',selected_data.Serial_Number{i},'.txt']);
+    Temp=load([data_dir,'/Task/RealignParameter/sub-',selected_data.Serial_number{i}, ...
+                                '/FD_Jenkinson_sub-',selected_data.Serial_number{i},'.txt']);
     HeadMotion(i,1)=mean(Temp);
-     Temp=load([data_dir,'/Task/RealignParameter/sub-',selected_data.Serial_Number{i}, ...
-                             '/S2_FD_Jenkinson_sub-',selected_data.Serial_Number{i},'.txt']);
+     Temp=load([data_dir,'/Task/RealignParameter/sub-',selected_data.Serial_number{i}, ...
+                             '/S2_FD_Jenkinson_sub-',selected_data.Serial_number{i},'.txt']);
     HeadMotion(i,2)=mean(Temp);
-    Temp=load([data_dir,'/Rest/RealignParameter/sub-',selected_data.Serial_Number{i}, ...
-                             '/FD_Jenkinson_sub-',selected_data.Serial_Number{i},'.txt']);
+    Temp=load([data_dir,'/Rest/RealignParameter/sub-',selected_data.Serial_number{i}, ...
+                             '/FD_Jenkinson_sub-',selected_data.Serial_number{i},'.txt']);
     HeadMotion(i,3)=mean(Temp);
 end
 matrixTable = array2table(HeadMotion, ...

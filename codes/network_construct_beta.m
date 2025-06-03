@@ -34,7 +34,7 @@ end
 demog_info_imputed= readtable([signal_dir, '/sample_clean_imputed_v5.csv']);
 sub_list = demog_info_imputed.Serial_Number;
 StartingDirName = 'FunSurfWCFS';
-StartingDirName_Volume = 'FunVoluWCFS';
+% StartingDirName_Volume = 'FunVoluWCFS';
 mask_flag = 'Schaefer400_17networks';
 
 %% extract time series
@@ -76,24 +76,24 @@ parfor i=1:length(sub_list)
                     '', 1);
     end
     
-    % volume
-    if ~exist([OutputDir,filesep,'FunVolu',filesep, 'ROISignals_',StartingDirName,'_',mask_flag], 'dir')
-       mkdir([OutputDir,filesep,'FunVolu',filesep, 'ROISignals_',StartingDirName,'_',mask_flag]);
-    end
-
-   [ROISignalsVolu] = y_ExtractROISignal([data_currentVolume_dir, filesep, 'sub-', sub_list{i}], ...
-        {[atlas_dir,filesep,'Tian_Subcortex_S4_3T_2009cAsym.nii']}, ...
-        [OutputDir,filesep,'FunVolu',filesep, 'ROISignals_',StartingDirName,'_',mask_flag], ...
-        '', 1);
-    
-    if ~exist([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName], 'dir')
-       mkdir([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName]);
-    end
-    ROISignals = [ROISignalsSurfLH, ROISignalsSurfRH, ROISignalsVolu];
-    y_CallSave([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName,filesep, ...
-                'ROISignals_',sub_list{i},'.mat'], ROISignals, '');
-    y_CallSave([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName,filesep, ...
-                'ROISignals_',sub_list{i},'.txt'], ROISignals, ' ''-ASCII'', ''-DOUBLE'',''-TABS''');
+   %  % volume
+   %  if ~exist([OutputDir,filesep,'FunVolu',filesep, 'ROISignals_',StartingDirName,'_',mask_flag], 'dir')
+   %     mkdir([OutputDir,filesep,'FunVolu',filesep, 'ROISignals_',StartingDirName,'_',mask_flag]);
+   %  end
+   % 
+   % [ROISignalsVolu] = y_ExtractROISignal([data_currentVolume_dir, filesep, 'sub-', sub_list{i}], ...
+   %      {[atlas_dir,filesep,'Tian_Subcortex_S4_3T_2009cAsym.nii']}, ...
+   %      [OutputDir,filesep,'FunVolu',filesep, 'ROISignals_',StartingDirName,'_',mask_flag], ...
+   %      '', 1);
+   % 
+   %  if ~exist([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName], 'dir')
+   %     mkdir([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName]);
+   %  end
+   %  ROISignals = [ROISignalsSurfLH, ROISignalsSurfRH, ROISignalsVolu];
+   %  y_CallSave([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName,filesep, ...
+   %              'ROISignals_',sub_list{i},'.mat'], ROISignals, '');
+   %  y_CallSave([OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName,filesep, ...
+   %              'ROISignals_',sub_list{i},'.txt'], ROISignals, ' ''-ASCII'', ''-DOUBLE'',''-TABS''');
 end
 
 %% do network construction
@@ -103,14 +103,14 @@ if isempty(pool)
 end
 
 % nodal level
-load([work_dir, '/cfg_TDA_only_surface_nodal.mat']);
+load([work_dir, '/preprocessing/cfg_TDA_only_surface_nodal.mat']);
 DataDir = [OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName];
 OutDir = output_nodal_dir;
 Cfg.SubjectID = sub_list;
 [Error, Cfg]=y_NetworkConstruction(Cfg,DataDir,OutDir,[]);
 
 % network level
-load([work_dir, '/cfg_TDA_only_surface_network.mat']);
+load([work_dir, '/preprocessing/cfg_TDA_only_surface_network.mat']);
 DataDir = [OutputDir, filesep,'ROISignals_SurfLHSurfRHVolu_',StartingDirName];
 OutDir = output_network_dir;
 Cfg.SubjectID = sub_list;
