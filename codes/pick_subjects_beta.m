@@ -7,20 +7,23 @@
 % Xiao Chen
 % 250124
 %
+% Revised to be openly shared
+% 250603
+%
 % chenxiaophd@gmail.com
 
 %% initialization
 clear; clc;
 
-work_dir = 'xxxxxx';
-if ~exist(work_dir, 'dir'); mkdir(work_dir); end
-data_dir = 'xxxxxxx';
+% work_dir: the github repository
+work_dir = '/Users/Chenxiao/Documents/project_codes/rum_network_stable';
+data_dir = '/Volumes/XIaoChenBAK/Suzhou_Data/data4share';
 
 %% read in the demographic data and do cleaning
-demographic_info = readtable([work_dir, '/data/demographic_info_v10.xlsx'], 'Sheet', 1);
+demographic_info = readtable([work_dir, '/data/demographic_info4share.xlsx'], 'Sheet', 1);
 % select some columns
-selected_var = {'Serial_Number', 'Dx', 'Sex', 'Age', 'Edu', 'Handedness_label', 'Drug_naive', ...
-                'HAMD_Sum', 'HAMA_Sum', 'Rumination', 'Reflection', 'Brooding', 'BDI'};
+selected_var = {'Serial_number', 'Dx', 'Sex', 'Age', 'Edu', 'Handedness_label', 'Drug_naive', ...
+                'HAMD_Sum'};
 selected_data = demographic_info(:, selected_var);
 % set all 999s as NaN
 for i = 1:width(selected_data)
@@ -30,14 +33,14 @@ for i = 1:width(selected_data)
     end
 end
 % round all imputed data to the nearest integers
-selected_var = {'HAMD_Sum', 'HAMA_Sum', 'Rumination', 'Reflection', 'Brooding', 'BDI'};
+selected_var = {'HAMD_Sum'};
 for i = 1:length(selected_var)
     columnName = selected_var{i};
     selected_data.(columnName) = round(selected_data.(columnName));
 end
 
 % read in the behavior data
-behavior_data = readtable([work_dir, '/behaviral_results.csv']);
+behavior_data = readtable([work_dir, '/data/behaviral_results.csv']);
 % set all 999s as NaN
 for i = 1:width(behavior_data)
     if isnumeric(behavior_data{:, i})

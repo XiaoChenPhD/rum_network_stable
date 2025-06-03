@@ -12,6 +12,8 @@ Note: Some regions of this atlas do not belong to any networks, they are exclude
 /data:
 demographic_info4share.xlsx: shared demographical info;
 
+behavior_results_v2.xlsx: the emotional ratings after each session;
+
 The rest are intermediate results
 
 /outputs:
